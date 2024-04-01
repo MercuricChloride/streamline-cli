@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.81"
 clap = { version = "4.5.4", features = ["derive"] }
+rhai = { git = "https://github.com/MercuricChloride/rhai.git", branch = "streamline" }

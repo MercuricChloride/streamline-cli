@@ -1,37 +1,19 @@
 #!/usr/bin/env bash
 set -e
 
-if [ -z "$1" ]; then
-    "You need to pass a path into the build script!"
-    exit 1
-fi
-
-echo "Starting build..."
-
-echo "Formatting the streamline file..."
-format.sh "$1"
-echo "Formatted successfully!"
-
-# Copy the tangled streamline file into the template repository
-echo "Copying streamline file to template repo"
-cp build/formatted.rhai $TEMPLATE_REPO_PATH/streamline.rhai
-echo "Copied streamline file to template repo path!"
+TEMPLATE_REPO="$HOME/streamline-cli/template-repo"
+ABIS="$HOME/streamline-cli/abis"
 
 echo "Copying the abis to template repo"
-cp abis/* $TEMPLATE_REPO_PATH/abis
-echo "Copied streamline file to template repo path"
+cp "$ABIS"/* "$TEMPLATE_REPO/abis"
+echo "Copied abis to template repo"
 
-echo "Running the streamline file to generate the code"
-rhai-run build/formatted.rhai
-echo "Ran streamline file and generated code"
+(cd "$TEMPLATE_REPO" \
+    && make pack \
+    && cp ./output.spkg /tmp/output.spkg)
 
-CURRENT_PATH=$(pwd)
-#echo "Set Current Path to: " $CURRENT_PATH
+echo "Built the template repo and packaged the spkg into /tmp/output.spkg"
 
-(cd $TEMPLATE_REPO_PATH \
-    && make pack\
-    && cp ./output.spkg /tmp/output.spkg #$CURRENT_PATH/build/output.spkg\
-)
-echo "Built the template repo and packaged the spkg into ./output.spkg"
+cp /tmp/output.spkg ./output.spkg
 
 echo "BUILD COMPLETE!"

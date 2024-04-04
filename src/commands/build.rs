@@ -4,11 +4,21 @@ use crate::utils::*;
 use anyhow::{anyhow, Error};
 use rhai::{packages::streamline, Engine, Scope};
 
-fn format_rhai_file(path: &str) -> Result<(), Error> {
+fn format_rhai_file(path: &str, start_block: Option<i64>) -> Result<(), Error> {
+    let start_block = start_block.map(|e| e.to_string()).unwrap_or(String::new());
     let scripts_dir = get_scripts_dir();
-    let command = format!("bash {scripts_dir}/format.sh {path}");
+    let command = format!("bash {scripts_dir}/format.sh {path} {start_block}");
     run_command(&command)?;
     println!("Formatted the rhai file");
+    Ok(())
+}
+
+fn build_spkg() -> Result<(), Error> {
+    println!("Starting compilation...");
+    let scripts_dir = get_scripts_dir();
+    let command = format!("bash {scripts_dir}/build.sh");
+    run_command(&command)?;
+    println!("Built the spkg");
     Ok(())
 }
 
@@ -43,11 +53,14 @@ fn rhai_run() -> Result<(), Error> {
     Ok(())
 }
 
-pub fn handler(path: &str) -> Result<(), Error> {
+pub fn handler(path: &str, start_block: Option<i64>) -> Result<(), Error> {
     // First format the rhai file
-    format_rhai_file(path)?;
+    format_rhai_file(path, start_block)?;
 
     // Run the file to generate the rust code
     rhai_run()?;
+
+    // build the spkg
+    build_spkg()?;
     Ok(())
 }

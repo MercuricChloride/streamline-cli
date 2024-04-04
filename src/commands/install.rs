@@ -1,4 +1,4 @@
-use crate::utils::*;
+use crate::{constants, utils::*};
 use anyhow::Error;
 use std::{
     env, fs,
@@ -73,7 +73,7 @@ fn boostrap_dirs() -> Result<(), Error> {
     println!("Created the abis dir");
 
     create_dir(&scripts_path).expect("Couldn't create the scripts dir!");
-    copy_dir_all("scripts/", &scripts_path)?;
+    copy_dir_all(format!("{}/scripts/", constants::ROOT_PATH), &scripts_path)?;
     println!("Created scripts directory");
 
     // copy the template repo

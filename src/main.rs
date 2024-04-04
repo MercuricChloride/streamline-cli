@@ -1,10 +1,14 @@
+use std::{fs, path::Path};
+
 use anyhow::Error;
 use clap::{Parser, Subcommand};
 
 mod commands;
+pub mod constants;
 pub mod utils;
 
 use commands::*;
+use utils::get_streamline_dir;
 
 #[derive(Parser, Debug)]
 #[command(version, about)]
@@ -17,8 +21,14 @@ struct Cli {
 enum Commands {
     Install,
     List,
-    Add { path: String },
-    Build { path: String },
+    Clean,
+    Add {
+        path: String,
+    },
+    Build {
+        path: String,
+        start_block: Option<i64>,
+    },
 }
 
 fn main() -> Result<(), Error> {
@@ -28,7 +38,15 @@ fn main() -> Result<(), Error> {
         Commands::Install => install::handler()?,
         Commands::Add { path } => add::handler(&path)?,
         Commands::List => list::handler()?,
-        Commands::Build { path } => build::handler(&path)?,
+        Commands::Build { path, start_block } => build::handler(&path, start_block)?,
+        Commands::Clean => {
+            let path = format!("{}/template-repo/Cargo.lock", get_streamline_dir());
+            let lock_file = Path::new(&path);
+            if lock_file.exists() {
+                fs::remove_file(lock_file).unwrap();
+                println!("Removed template repo lock file!");
+            }
+        }
     };
 
     Ok(())

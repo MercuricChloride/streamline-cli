@@ -2,6 +2,10 @@
 name = "streamline-cli"
 version = "0.1.0"
 edition = "2021"
+authors = ["Alexander Gusev"]
+description = "streamline-cli is a CLI tool designed to manage all things related to development with streamline, a DSL for writing substreams, which are a tool for indexing blockchain data."
+license = "GPL-3.0-or-later"
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

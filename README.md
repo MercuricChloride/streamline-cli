@@ -13,7 +13,7 @@ To install Streamline-CLI, you need to have the following installed on your syst
 Once you have those installed, you can simply run this command to install the cli to your PATH.
 
 ``` sh
-cargo install streamline-cli
+git clone https://github.com/MercuricChloride/streamline-cli.git && cd streamline-cli && cargo install --path .
 ```
 
 After installing, run the `install` command to setup the rest of the dependencies and paths

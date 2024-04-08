@@ -7,7 +7,7 @@ use rhai::{packages::streamline, Engine, Scope};
 fn format_rhai_file(path: &str, start_block: Option<i64>) -> Result<(), Error> {
     let start_block = start_block.map(|e| e.to_string()).unwrap_or(String::new());
     let scripts_dir = get_scripts_dir();
-    let command = format!("bash {scripts_dir}/format.sh {path} {start_block}");
+    let command = format!("{scripts_dir}/format.sh {path} {start_block}");
     run_command(&command)?;
     println!("Formatted the rhai file");
     Ok(())
@@ -16,7 +16,7 @@ fn format_rhai_file(path: &str, start_block: Option<i64>) -> Result<(), Error> {
 fn build_spkg() -> Result<(), Error> {
     println!("Starting compilation...");
     let scripts_dir = get_scripts_dir();
-    let command = format!("bash {scripts_dir}/build.sh");
+    let command = format!("{scripts_dir}/build.sh");
     run_command(&command)?;
     println!("Built the spkg");
     Ok(())
@@ -56,7 +56,7 @@ fn rhai_run() -> Result<(), Error> {
 fn update_yaml_network(network: String) -> Result<(), Error> {
     println!("Updating network in yaml...");
     let scripts_dir = get_scripts_dir();
-    let command = format!("bash {scripts_dir}/update_network.sh {network}");
+    let command = format!("{scripts_dir}/update_network.sh {network}");
     run_command(&command)?;
     println!("Network Updated");
     Ok(())

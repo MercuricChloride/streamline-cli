@@ -25,9 +25,15 @@ enum Commands {
     Add {
         path: String,
     },
+    Schema {
+        path: String,
+    },
     Build {
         path: String,
+        #[arg(short, long)]
         start_block: Option<i64>,
+        #[arg(short, long)]
+        network: Option<String>,
     },
 }
 
@@ -38,7 +44,12 @@ fn main() -> Result<(), Error> {
         Commands::Install => install::handler()?,
         Commands::Add { path } => add::handler(&path)?,
         Commands::List => list::handler()?,
-        Commands::Build { path, start_block } => build::handler(&path, start_block)?,
+        Commands::Build {
+            path,
+            start_block,
+            network,
+        } => build::handler(&path, start_block, network)?,
+        Commands::Schema { path } => schema::handler(&path)?,
         Commands::Clean => {
             let path = format!("{}/template-repo/Cargo.lock", get_streamline_dir());
             let lock_file = Path::new(&path);

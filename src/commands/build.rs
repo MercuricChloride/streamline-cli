@@ -53,12 +53,26 @@ fn rhai_run() -> Result<(), Error> {
     Ok(())
 }
 
-pub fn handler(path: &str, start_block: Option<i64>) -> Result<(), Error> {
+fn update_yaml_network(network: String) -> Result<(), Error> {
+    println!("Updating network in yaml...");
+    let scripts_dir = get_scripts_dir();
+    let command = format!("bash {scripts_dir}/update_network.sh {network}");
+    run_command(&command)?;
+    println!("Network Updated");
+    Ok(())
+}
+
+pub fn handler(path: &str, start_block: Option<i64>, network: Option<String>) -> Result<(), Error> {
     // First format the rhai file
     format_rhai_file(path, start_block)?;
 
     // Run the file to generate the rust code
     rhai_run()?;
+
+    // Update the network field in the yaml if passed as an arg
+    if let Some(network) = network {
+        update_yaml_network(network)?;
+    }
 
     // build the spkg
     build_spkg()?;

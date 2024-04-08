@@ -1,5 +1,5 @@
 /^(new|update)/, /\{$/ {
-	printf "entity %s @entity {\n  id:ID!\n", $2
+	printf "type %s @entity {\n  id:ID!\n", $2
 	next
 }
 

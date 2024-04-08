@@ -4,9 +4,9 @@ set -e
 SCRIPTS="$HOME/streamline-cli/scripts"
 TEMPLATE_REPO="$HOME/streamline-cli/template-repo"
 
-awk -f "$SCRIPTS/awk/module-format.awk" "$1" \
-    | awk -f "$SCRIPTS/awk/format-types.awk" \
-    | awk -f "$SCRIPTS/awk/graphql/function_calls.awk" \
+gawk -f "$SCRIPTS/awk/module-format.awk" "$1" \
+    | gawk -f "$SCRIPTS/awk/format-types.awk" \
+    | gawk -f "$SCRIPTS/awk/graphql/function_calls.awk" \
     > "$TEMPLATE_REPO/streamline.rhai"
 
 GENERATE_YAML="generate_yaml(\"$TEMPLATE_REPO/streamline.yaml\");"

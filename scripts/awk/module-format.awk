@@ -1,4 +1,4 @@
-#!/usr/env awk
+#!/usr/env gawk
 
 # match module defs
 /^(mfn|sfn)\s+(\w+|_+)\s*\((.*)\)\s*\{/ {

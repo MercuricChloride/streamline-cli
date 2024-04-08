@@ -21,7 +21,7 @@ macro_rules! checks {
 
 fn check_dependencies() -> Result<(), Error> {
     checks! {
-        Awk -> "awk --version"
+        Gawk -> "gawk --version"
         Git -> "git --version"
         Substreams -> "substreams --version"
     }

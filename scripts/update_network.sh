@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 set -e
 
 TEMPLATE_REPO="$HOME/streamline-cli/template-repo"

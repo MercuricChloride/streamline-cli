@@ -9,7 +9,7 @@ BEGIN {
 }
 
 # new foo
-/new|update\s(\w)+.*{/ {
+/^new|update\s(\w)+.*{/ {
 	entityName = $2
 	setEntity()
 }
@@ -47,11 +47,11 @@ END {
 		exit exitState
 	}
 	for (ent in entities) {
-		printf "### %s ###\n", ent
+		printf "type %s @entity {\n", ent
 		for (field in definedFields[ent]) {
 			printf "%s %s\n", field, definedFields[ent][field]
 		}
-		print "######\n"
+		printf "}\n"
 		#printf "### %s ###\n", ent
 		#print entities[ent]
 	}
@@ -62,7 +62,11 @@ END {
 function formatType(typeName, splitLen, arr)
 {
 	splitLen = split(typeName, arr, ":")
-	return arr[1]
+	if (arr[2] == "") {
+		return arr[1]
+	} else {
+		return sprintf("%s!", arr[1])
+	}
 }
 
 # Adds an entity to the global store

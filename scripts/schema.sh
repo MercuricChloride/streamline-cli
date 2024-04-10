@@ -10,7 +10,7 @@ BEGIN { ORS = "\n\n" }
   print gensub(/^\s+/, "", "g", $0)
 }
 ' "$1" \
-    | gawk -f "$SCRIPTS/awk/graphql/create_schema.awk" \
+    | gawk -f "$SCRIPTS/awk/graphql/entities.awk" \
     > schema.graphql
 
 echo "Wrote schema to 'schema.graphql!'"

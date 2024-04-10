@@ -24,6 +24,7 @@ fn check_dependencies() -> Result<(), Error> {
         Gawk -> "gawk --version"
         Git -> "git --version"
         Substreams -> "substreams --version"
+        FireEth -> "fireeth --version"
     }
 }
 

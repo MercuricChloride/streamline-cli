@@ -13,6 +13,13 @@
 	next
 }
 
+#
+# match method defs
+/^(method)\s+(\w+|_+)\s*\((.*)\)\s*\{/ {
+	printf gensub(/method/, "fn", "", $0)
+	next
+}
+
 // {
 	print
 }

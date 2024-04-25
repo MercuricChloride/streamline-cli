@@ -29,14 +29,21 @@ pub fn run_command(command: &str) -> Result<String, Error> {
     let result = Command::new(command)
         .args(args)
         .stdout(Stdio::piped())
-        .output()
-        .map_err(Error::from);
+        .output();
 
     match result {
         Ok(output) => {
+            let std_err = String::from_utf8(output.stderr).unwrap_or(String::new());
+            if !output.status.success() {
+                eprintln!("Error: {:?}", std_err);
+                return Err(Error::msg(std_err));
+            }
             let output_str = String::from_utf8(output.stdout).unwrap_or(String::new());
             Ok(output_str)
         }
-        Err(err) => Err(Error::from(err)),
+        Err(err) => {
+            eprintln!("Error running command: {:?}", err);
+            Err(Error::from(err))
+        }
     }
 }

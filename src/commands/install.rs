@@ -12,8 +12,13 @@ const TEMPLATE_REPO_LINK: &str =
 macro_rules! checks {
     ($($name:ident -> $command:expr)+) => {
         $(
-            run_command($command)?;
-            println!("{} is installed!", stringify!($name));
+            let msg = format!("{} is not installed!", stringify!($name));
+            if let Err(e) = run_command($command) {
+                eprintln!("{}", msg);
+                return Err(e.into());
+            } else {
+                println!("{} is installed!", stringify!($name));
+            }
         )+
         Ok(())
     };
@@ -24,11 +29,16 @@ fn check_dependencies() -> Result<(), Error> {
         Gawk -> "gawk --version"
         Git -> "git --version"
         Substreams -> "substreams --version"
-        FireEth -> "fireeth --version"
+        //FireEth -> "fireeth --version"
     }
 }
 
 fn install_template_repo(install_location: &str) -> Result<(), Error> {
+    let path = Path::new(install_location);
+    if path.exists() && path.is_dir() {
+        fs::remove_dir_all(install_location)?;
+    }
+
     run_command(&format!(
         "git clone {} {}",
         TEMPLATE_REPO_LINK, install_location

@@ -18,6 +18,14 @@ fn build_spkg() -> Result<(), Error> {
     let scripts_dir = get_scripts_dir();
     let command = format!("{scripts_dir}/build.sh");
     run_command(&command)?;
+    let current_dir = std::env::current_dir()?;
+    let spkg_path = format!("{}/output.spkg", current_dir.to_string_lossy());
+    let spkg_path = Path::new(&spkg_path);
+
+    if !spkg_path.exists() {
+        return Err(anyhow!("Error building the spkg"));
+    }
+
     println!("Built the spkg");
     Ok(())
 }
@@ -62,9 +70,23 @@ fn update_yaml_network(network: String) -> Result<(), Error> {
     Ok(())
 }
 
-pub fn handler(path: &str, start_block: Option<i64>, network: Option<String>) -> Result<(), Error> {
+pub fn handler(
+    path: &str,
+    start_block: Option<i64>,
+    network: Option<String>,
+    only_format: bool,
+) -> Result<(), Error> {
     // First format the rhai file
     format_rhai_file(path, start_block)?;
+
+    // If only format is passed, cat out the file and return
+    if only_format {
+        let formatted_file = format!("{}/template-repo/streamline.rhai", get_streamline_dir());
+        let formatted_file = Path::new(&formatted_file);
+        let file = fs::read_to_string(formatted_file)?;
+        println!("{}", file);
+        return Ok(());
+    }
 
     // Run the file to generate the rust code
     rhai_run()?;

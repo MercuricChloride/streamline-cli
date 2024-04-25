@@ -6,9 +6,8 @@ authors = ["Alexander Gusev"]
 description = "streamline-cli is a CLI tool designed to manage all things related to development with streamline, a DSL for writing substreams, which are a tool for indexing blockchain data."
 license = "GPL-3.0-or-later"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 anyhow = "1.0.81"
 clap = { version = "4.5.4", features = ["derive"] }
 rhai = { git = "https://github.com/MercuricChloride/rhai.git", branch = "streamline" }
+serde_json = "1.0.116"

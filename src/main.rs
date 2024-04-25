@@ -20,7 +20,9 @@ struct Cli {
 #[derive(Subcommand, Debug)]
 enum Commands {
     Install,
-    List,
+    List {
+        prefix: Option<String>,
+    },
     Clean,
     Add {
         path: String,
@@ -43,7 +45,7 @@ fn main() -> Result<(), Error> {
     match command {
         Commands::Install => install::handler()?,
         Commands::Add { path } => add::handler(&path)?,
-        Commands::List => list::handler()?,
+        Commands::List { prefix } => list::handler(prefix)?,
         Commands::Build {
             path,
             start_block,

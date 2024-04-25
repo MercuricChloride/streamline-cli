@@ -48,8 +48,9 @@ END {
 	}
 	for (ent in entities) {
 		printf "type %s @entity {\n", ent
+		printf "  id: ID!\n"
 		for (field in definedFields[ent]) {
-			printf "%s %s\n", field, definedFields[ent][field]
+			printf "  %s %s\n", field, definedFields[ent][field]
 		}
 		printf "}\n"
 		#printf "### %s ###\n", ent
@@ -62,8 +63,11 @@ END {
 function formatType(typeName, splitLen, arr)
 {
 	splitLen = split(typeName, arr, ":")
+	lfield = arr[1]
+	# Replace instances of Address with Bytes
+	lfield = gensub(/Address/, "String", "g", lfield)
 	if (arr[2] == "") {
-		return arr[1]
+		return lfield
 	} else {
 		return sprintf("%s!", arr[1])
 	}

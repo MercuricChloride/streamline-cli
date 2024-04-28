@@ -4,7 +4,6 @@ use anyhow::Error;
 use clap::{Parser, Subcommand};
 
 mod commands;
-pub mod constants;
 pub mod utils;
 
 use commands::*;

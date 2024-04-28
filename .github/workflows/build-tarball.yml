@@ -14,3 +14,10 @@ jobs:
           files: |
             ./scripts
           outPath: scripts.tar.gz
+      - name: Upload the tarball to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: scripts.tar.gz
+          overwrite: true
+          body: "This is my release text"

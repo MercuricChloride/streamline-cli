@@ -5,6 +5,7 @@ set -e
 
 # set the latest release
 LATEST_RELEASE="https://github.com/MercuricChloride/streamline-cli/releases/latest"
+GITHUB_LINK="https://github.com/MercuricChloride/streamline-cli.git"
 
 # Check for rustup
 if ! command -v rustup > /dev/null 2>&1; then
@@ -35,3 +36,6 @@ curl -L -o "/tmp/scripts.tar.gz" "$LATEST_RELEASE/download/scripts.tar.gz"
 
 # Unpack the tarball into the streamline-cli dir
 tar -xzf "/tmp/scripts.tar.gz" "$HOME/streamline-cli"
+
+# Install the streamline-cli
+cargo install --git $GITHUB_LINK

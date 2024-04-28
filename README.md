@@ -5,33 +5,19 @@ This cli allows for easy management and building of substream packages (spkgs) f
 
 # Installation
 To install Streamline-CLI, you need to have the following installed on your system:
-- `cargo`
-- `protoc`
-- `substreams`
-- `awk`
+- `brew`
+- `rustup`
 
-Once you have those installed, you can simply run this command to install the cli to your PATH.
+Once you have those installed, you can simply run this command to install streamline
 
 ``` sh
-git clone https://github.com/MercuricChloride/streamline-cli.git && cd streamline-cli && cargo install --path .
-```
-
-After installing, run the `install` command to setup the rest of the dependencies and paths
-
-``` sh
-streamline-cli install
+curl "https://raw.githubusercontent.com/MercuricChloride/streamline-cli/master/install.sh" | sh
 ```
 
 This will create a new directory in your home directory with all of the dependencies. You shouldn't need to ever touch this manually. But to remove it, just remove the directory located at: `~/streamline-cli`
 
 # Usage
 ## Basic Commands
-
-### Install Dependencies
-
-``` sh
-streamline-cli install
-```
 
 ### Add ABI JSON to Global Registry
 

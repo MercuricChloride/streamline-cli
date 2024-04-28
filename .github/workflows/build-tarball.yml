@@ -20,5 +20,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: scripts.tar.gz
+          tag: ${{ github.ref }}
+          body: ${{ github.ref }}
           overwrite: true
-          body: "This is my release text"

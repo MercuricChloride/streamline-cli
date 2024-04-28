@@ -28,15 +28,13 @@ rustup target add wasm32-unknown-unknown
 # Make the abis directory
 mkdir -p "$HOME/streamline-cli/abis"
 
-# Clone the template repo down into the template-repo dir
 (cd "$HOME/streamline-cli" && \
-    git clone "https://github.com/MercuricChloride/streamline-template-repository.git" template-repo)
-
-# Pull the tarball from the latest github release
-curl -L -o "/tmp/scripts.tar.gz" "$LATEST_RELEASE/download/scripts.tar.gz"
-
-# Unpack the tarball into the streamline-cli dir
-tar -xzf "/tmp/scripts.tar.gz" -C "$HOME/streamline-cli"
+    # Clone the template repo down into the template-repo dir
+    git clone "https://github.com/MercuricChloride/streamline-template-repository.git" template-repo && \
+    # Pull the tarball from the latest github release
+    curl -L -o "/tmp/scripts.tar.gz" "$LATEST_RELEASE/download/scripts.tar.gz" && \
+    # Unpack the tarball into the streamline-cli dir
+    tar -xzf "/tmp/scripts.tar.gz")
 
 # Install the streamline-cli
 cargo install --git $GITHUB_LINK

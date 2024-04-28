@@ -19,7 +19,6 @@ struct Cli {
 
 #[derive(Subcommand, Debug)]
 enum Commands {
-    Install,
     List {
         prefix: Option<String>,
     },
@@ -46,7 +45,6 @@ fn main() -> Result<(), Error> {
     let Cli { command } = Cli::parse();
 
     match command {
-        Commands::Install => install::handler()?,
         Commands::List { prefix } => list::handler(prefix)?,
         Commands::Add { path, name } => add::handler(&path, &name)?,
         Commands::Build {

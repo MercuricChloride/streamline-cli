@@ -29,7 +29,8 @@ rustup target add wasm32-unknown-unknown
 mkdir -p "$HOME/streamline-cli/abis"
 
 # Clone the template repo down into the template-repo dir
-git clone "https://github.com/MercuricChloride/streamline-template-repository.git" "$HOME/streamline-cli/template-repo"
+(cd "$HOME/streamline-cli" && \
+    git clone "https://github.com/MercuricChloride/streamline-template-repository.git" template-repo)
 
 # Pull the tarball from the latest github release
 curl -L -o "/tmp/scripts.tar.gz" "$LATEST_RELEASE/download/scripts.tar.gz"

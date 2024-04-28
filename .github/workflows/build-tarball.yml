@@ -3,6 +3,7 @@ run-name: Building the scripts tarball
 on: [push]
 jobs:
   Build-Tarball:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master

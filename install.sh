@@ -36,7 +36,7 @@ mkdir -p "$HOME/streamline-cli/abis"
 curl -L -o "/tmp/scripts.tar.gz" "$LATEST_RELEASE/download/scripts.tar.gz"
 
 # Unpack the tarball into the streamline-cli dir
-tar -xzf "/tmp/scripts.tar.gz" "$HOME/streamline-cli"
+tar -xzf "/tmp/scripts.tar.gz" -C "$HOME/streamline-cli"
 
 # Install the streamline-cli
 cargo install --git $GITHUB_LINK

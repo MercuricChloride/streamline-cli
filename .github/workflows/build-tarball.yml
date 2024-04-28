@@ -22,7 +22,6 @@ jobs:
           file: scripts.tar.gz
           tag: ${{ github.ref }}
           body: ${{ github.ref }}
-          overwrite: true
       - name: Upload the install script to the release
         uses: svenstaro/upload-release-action@v2
         with:
@@ -30,4 +29,3 @@ jobs:
           file: install.sh
           tag: ${{ github.ref }}
           body: ${{ github.ref }}
-          overwrite: true

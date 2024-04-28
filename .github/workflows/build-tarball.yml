@@ -13,7 +13,7 @@ jobs:
         with:
           command: c
           files: |
-            ./scripts
+            scripts
           outPath: scripts.tar.gz
       - name: Upload the tarball to release
         uses: svenstaro/upload-release-action@v2

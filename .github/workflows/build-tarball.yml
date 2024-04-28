@@ -22,10 +22,3 @@ jobs:
           file: scripts.tar.gz
           tag: ${{ github.ref }}
           body: ${{ github.ref }}
-      - name: Upload the install script to the release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: install.sh
-          tag: ${{ github.ref }}
-          body: ${{ github.ref }}
